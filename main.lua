@@ -4,9 +4,7 @@ local Window = Rayfield:CreateWindow({
    Name = "Caz Script",
    LoadingTitle = "Velocity System",
    LoadingSubtitle = "by Rebo",
-   ConfigurationSaving = {
-      Enabled = false
-   },
+   ConfigurationSaving = { Enabled = false },
    KeySystem = false
 })
 
@@ -15,27 +13,20 @@ local MainTab = Window:CreateTab("Main", 4483362458)
 local p = game.Players.LocalPlayer
 local Flying = false
 
+-- [1. REAL FLY]
 MainTab:CreateButton({
    Name = "REAL FLY",
    Callback = function()
-      if Flying then 
-         Flying = false 
-         return 
-      end
+      if Flying then Flying = false return end
       Flying = true
       local char = p.Character
       local root = char and char:FindFirstChild("HumanoidRootPart")
       if not root then return end
-      local bv = Instance.new("BodyVelocity")
-      bv.Name = "CazFly"
+      local bv = Instance.new("BodyVelocity", root)
       bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
       bv.Velocity = Vector3.new(0,0,0)
-      bv.Parent = root
-      local bg = Instance.new("BodyGyro")
-      bg.Name = "CazGyro"
+      local bg = Instance.new("BodyGyro", root)
       bg.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
-      bg.CFrame = root.CFrame
-      bg.Parent = root
       task.spawn(function()
          while Flying and char.Parent do
             local cam = workspace.CurrentCamera
@@ -43,12 +34,12 @@ MainTab:CreateButton({
             bv.Velocity = char.Humanoid.MoveDirection * 50
             task.wait()
          end
-         if bv then bv:Destroy() end
-         if bg then bg:Destroy() end
+         bv:Destroy() bg:Destroy()
       end)
    end,
 })
 
+-- [2. AIMBOT]
 MainTab:CreateButton({
    Name = "AIMBOT",
    Callback = function()
@@ -57,10 +48,7 @@ MainTab:CreateButton({
       for _, v in pairs(game.Players:GetPlayers()) do
          if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
             local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
-            if m < dist then
-               dist = m
-               target = v
-            end
+            if m < dist then dist = m target = v end
          end
       end
       if target then
@@ -69,6 +57,7 @@ MainTab:CreateButton({
    end,
 })
 
+-- [3. ALL SKIN]
 MainTab:CreateButton({
    Name = "ALL SKIN",
    Callback = function()
