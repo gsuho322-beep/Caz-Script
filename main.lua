@@ -8,13 +8,12 @@ local Window = Rayfield:CreateWindow({
    KeySystem = false
 })
 
-local Tab = Window:CreateTab("Main", 4483362458)
+local MainTab = Window:CreateTab("Main", 4483362458)
 
 local p = game.Players.LocalPlayer
 local Flying = false
 
--- [REAL FLY]
-Tab:CreateButton({
+MainTab:CreateButton({
    Name = "REAL FLY",
    Callback = function()
       if Flying then 
@@ -46,8 +45,7 @@ Tab:CreateButton({
    end,
 })
 
--- [AIMBOT]
-Tab:CreateButton({
+MainTab:CreateButton({
    Name = "AIMBOT",
    Callback = function()
       local target = nil
@@ -67,8 +65,7 @@ Tab:CreateButton({
    end,
 })
 
--- [ALL SKIN]
-Tab:CreateButton({
+MainTab:CreateButton({
    Name = "ALL SKIN",
    Callback = function()
       for _, v in pairs(game:GetDescendants()) do
