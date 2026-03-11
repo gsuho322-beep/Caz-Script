@@ -12,7 +12,6 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("Main", 4483362458)
 
--- 1. FLY
 local Flying = false
 local FlySpeed = 50
 local p = game.Players.LocalPlayer
@@ -51,7 +50,6 @@ MainTab:CreateButton({
     end,
 })
 
--- 2. AIMBOT
 MainTab:CreateButton({
     Name = "AIMBOT",
     Callback = function()
@@ -76,7 +74,6 @@ MainTab:CreateButton({
     end,
 })
 
--- 3. ALL SKIN
 MainTab:CreateButton({
     Name = "ALL SKIN",
     Callback = function()
