@@ -14,10 +14,9 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("Main", 4483362458)
 
--- 1. POWER FLY (Smooth Control)
 local Flying = false
-local p = game.Players.LocalPlayer
 local FlySpeed = 50
+local p = game.Players.LocalPlayer
 
 MainTab:CreateButton({
     Name = "REAL FLY",
@@ -47,30 +46,24 @@ MainTab:CreateButton({
                     bv.Velocity = char.Humanoid.MoveDirection * FlySpeed
                     task.wait()
                 end
-                bv:Destroy()
-                bg:Destroy()
+                if bv then bv:Destroy() end
+                if bg then bg:Destroy() end
             end)
         end
     end,
 })
 
--- 2. ALL SKIN (Deep Search)
 MainTab:CreateButton({
     Name = "ALL SKIN",
     Callback = function()
-        -- 게임 내의 모든 데이터 주소(Value)를 뒤져서 잠금을 풉니다.
-        local count = 0
         for _, v in pairs(game:GetDescendants()) do
             if v:IsA("BoolValue") and (v.Name:find("Own") or v.Name:find("Unlock") or v.Name:find("Skin")) then
                 v.Value = true
-                count = count + 1
             end
         end
-        Rayfield:Notify({Title = "Skin Unlocker", Content = count.." items attempted", Duration = 2})
     end,
 })
 
--- 3. AIMBOT
 MainTab:CreateButton({
     Name = "AIMBOT",
     Callback = function()
@@ -87,9 +80,4 @@ MainTab:CreateButton({
         end
         local target = GetT()
         if target then
-            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, target.Character.Head.Position)
-        end
-    end,
-})
-
-Rayfield:LoadConfiguration()
+            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position,
