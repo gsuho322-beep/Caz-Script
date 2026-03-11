@@ -12,11 +12,11 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("Main", 4483362458)
 
--- [1. REAL FLY]
 local Flying = false
 local FlySpeed = 50
 local p = game.Players.LocalPlayer
 
+-- [REAL FLY]
 MainTab:CreateButton({
     Name = "REAL FLY",
     Callback = function()
@@ -54,7 +54,7 @@ MainTab:CreateButton({
     end,
 })
 
--- [2. AIMBOT]
+-- [AIMBOT]
 MainTab:CreateButton({
     Name = "AIMBOT",
     Callback = function()
@@ -79,16 +79,8 @@ MainTab:CreateButton({
     end,
 })
 
--- [3. ALL SKIN]
+-- [ALL SKIN]
 MainTab:CreateButton({
     Name = "ALL SKIN",
     Callback = function()
         for _, v in pairs(game:GetDescendants()) do
-            if v:IsA("BoolValue") and (v.Name:lower():find("own") or v.Name:lower():find("unlock") or v.Name:lower():find("skin")) then
-                v.Value = true
-            end
-        end
-    end,
-})
-
-Rayfield:LoadConfiguration()
