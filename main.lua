@@ -70,4 +70,4 @@ MainTab:CreateButton({
     end,
 })
 
-Rayfield
+Rayfield:LoadConfiguration()
