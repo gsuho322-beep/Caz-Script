@@ -12,7 +12,7 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("Main", 4483362458)
 
--- 1. REAL FLY
+-- [1. REAL FLY]
 local Flying = false
 local FlySpeed = 50
 local p = game.Players.LocalPlayer
@@ -20,18 +20,24 @@ local p = game.Players.LocalPlayer
 MainTab:CreateButton({
     Name = "REAL FLY",
     Callback = function()
-        if Flying then Flying = false return end
+        if Flying then 
+            Flying = false 
+            return 
+        end
+        
         Flying = true
         local char = p.Character
         local root = char and char:FindFirstChild("HumanoidRootPart")
         if not root then return end
 
         local bv = Instance.new("BodyVelocity")
+        bv.Name = "CazFly"
         bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
         bv.Velocity = Vector3.new(0, 0, 0)
         bv.Parent = root
         
         local bg = Instance.new("BodyGyro")
+        bg.Name = "CazGyro"
         bg.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
         bg.CFrame = root.CFrame
         bg.Parent = root
@@ -43,43 +49,50 @@ MainTab:CreateButton({
                 bv.Velocity = char.Humanoid.MoveDirection * FlySpeed
                 task.wait()
             end
-            bv:Destroy()
-            bg:Destroy()
+            if bv then bv:Destroy() end
+            if bg then bg:Destroy() end
         end)
     end,
 })
 
--- 2. ALL SKIN
+-- [2. AIMBOT]
 MainTab:CreateButton({
-    Name = "ALL SKIN",
+    Name = "AIMBOT",
     Callback = function()
-        for _, v in pairs(game:GetDescendants()) do
-            if v:IsA("BoolValue") and (v.Name:find("Own") or v.Name:find("Unlock") or v.Name:find("Skin")) then
-                v.Value = true
+        local function GetTarget()
+            local target = nil
+            local dist = math.huge
+            for _, v in pairs(game.Players:GetPlayers()) do
+                if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
+                    local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
+                    if m < dist then
+                        dist = m
+                        target = v
+                    end
+                end
             end
+            return target
+        end
+        
+        local target = GetTarget()
+        if target then
+            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, target.Character.Head.Position)
         end
     end,
 })
 
--- 3. AIMBOT
+-- [3. ALL SKIN]
 MainTab:CreateButton({
-    Name = "AIMBOT",
+    Name = "ALL SKIN",
     Callback = function()
-        local function GetT()
-            local t = nil
-            local d = math.huge
-            for _, v in pairs(game.Players:GetPlayers()) do
-                if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
-                    local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
-                    if m < d then d = m t = v end
-                end
+        local count = 0
+        for _, v in pairs(game:GetDescendants()) do
+            if v:IsA("BoolValue") and (v.Name:lower():find("own") or v.Name:lower():find("unlock") or v.Name:lower():find("skin")) then
+                v.Value = true
+                count = count + 1
             end
-            return t
         end
-        local target = GetT()
-        if target then
-            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, target.Character.Head.Position)
-        end
+        Rayfield:Notify({Title = "Skin Unlocker", Content = count.." Items Found", Duration = 2})
     end,
 })
 
