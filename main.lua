@@ -8,25 +8,31 @@ local Window = Rayfield:CreateWindow({
    KeySystem = false
 })
 
-local MainTab = Window:CreateTab("Main", 4483362458)
+local Tab = Window:CreateTab("Main", 4483362458)
 
 local p = game.Players.LocalPlayer
 local Flying = false
 
--- [1. REAL FLY]
-MainTab:CreateButton({
+-- [REAL FLY]
+Tab:CreateButton({
    Name = "REAL FLY",
    Callback = function()
-      if Flying then Flying = false return end
+      if Flying then 
+         Flying = false 
+         return 
+      end
       Flying = true
       local char = p.Character
       local root = char and char:FindFirstChild("HumanoidRootPart")
       if not root then return end
       local bv = Instance.new("BodyVelocity", root)
+      bv.Name = "CazFly"
       bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
       bv.Velocity = Vector3.new(0,0,0)
       local bg = Instance.new("BodyGyro", root)
+      bg.Name = "CazGyro"
       bg.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+      bg.CFrame = root.CFrame
       task.spawn(function()
          while Flying and char.Parent do
             local cam = workspace.CurrentCamera
@@ -34,13 +40,14 @@ MainTab:CreateButton({
             bv.Velocity = char.Humanoid.MoveDirection * 50
             task.wait()
          end
-         bv:Destroy() bg:Destroy()
+         if bv then bv:Destroy() end
+         if bg then bg:Destroy() end
       end)
    end,
 })
 
--- [2. AIMBOT]
-MainTab:CreateButton({
+-- [AIMBOT]
+Tab:CreateButton({
    Name = "AIMBOT",
    Callback = function()
       local target = nil
@@ -48,7 +55,10 @@ MainTab:CreateButton({
       for _, v in pairs(game.Players:GetPlayers()) do
          if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
             local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
-            if m < dist then dist = m target = v end
+            if m < dist then
+               dist = m
+               target = v
+            end
          end
       end
       if target then
@@ -57,8 +67,8 @@ MainTab:CreateButton({
    end,
 })
 
--- [3. ALL SKIN]
-MainTab:CreateButton({
+-- [ALL SKIN]
+Tab:CreateButton({
    Name = "ALL SKIN",
    Callback = function()
       for _, v in pairs(game:GetDescendants()) do
