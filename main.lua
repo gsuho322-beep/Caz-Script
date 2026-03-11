@@ -73,4 +73,11 @@ MainTab:CreateButton({
    Name = "ALL SKIN",
    Callback = function()
       for _, v in pairs(game:GetDescendants()) do
-         if v:IsA("BoolValue") and (v.Name:lower():find("own") or v.Name:lower():
+         if v:IsA("BoolValue") and (v.Name:lower():find("own") or v.Name:lower():find("unlock") or v.Name:lower():find("skin")) then
+            v.Value = true
+         end
+      end
+   end,
+})
+
+Rayfield:LoadConfiguration()
