@@ -12,6 +12,7 @@ local Window = Rayfield:CreateWindow({
 
 local MainTab = Window:CreateTab("Main", 4483362458)
 
+-- [1. REAL FLY]
 local Flying = false
 local FlySpeed = 50
 local p = game.Players.LocalPlayer
@@ -27,16 +28,19 @@ MainTab:CreateButton({
         local char = p.Character
         local root = char and char:FindFirstChild("HumanoidRootPart")
         if not root then return end
+
         local bv = Instance.new("BodyVelocity")
         bv.Name = "CazFly"
         bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
         bv.Velocity = Vector3.new(0, 0, 0)
         bv.Parent = root
+        
         local bg = Instance.new("BodyGyro")
         bg.Name = "CazGyro"
         bg.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
         bg.CFrame = root.CFrame
         bg.Parent = root
+
         task.spawn(function()
             while Flying and char.Parent do
                 local cam = workspace.CurrentCamera
@@ -50,6 +54,7 @@ MainTab:CreateButton({
     end,
 })
 
+-- [2. AIMBOT]
 MainTab:CreateButton({
     Name = "AIMBOT",
     Callback = function()
@@ -74,6 +79,7 @@ MainTab:CreateButton({
     end,
 })
 
+-- [3. ALL SKIN]
 MainTab:CreateButton({
     Name = "ALL SKIN",
     Callback = function()
