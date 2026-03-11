@@ -8,18 +8,15 @@ local Window = Rayfield:CreateWindow({
    KeySystem = false
 })
 
-local MainTab = Window:CreateTab("Main", 4483362458)
+local Tab1 = Window:CreateTab("Main", 4483362458)
 
 local p = game.Players.LocalPlayer
 local Flying = false
 
-MainTab:CreateButton({
+Tab1:CreateButton({
    Name = "REAL FLY",
    Callback = function()
-      if Flying then 
-         Flying = false 
-         return 
-      end
+      if Flying then Flying = false return end
       Flying = true
       local char = p.Character
       local root = char and char:FindFirstChild("HumanoidRootPart")
@@ -45,7 +42,7 @@ MainTab:CreateButton({
    end,
 })
 
-MainTab:CreateButton({
+Tab1:CreateButton({
    Name = "AIMBOT",
    Callback = function()
       local target = nil
@@ -53,10 +50,7 @@ MainTab:CreateButton({
       for _, v in pairs(game.Players:GetPlayers()) do
          if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
             local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
-            if m < dist then
-               dist = m
-               target = v
-            end
+            if m < dist then dist = m target = v end
          end
       end
       if target then
@@ -65,7 +59,7 @@ MainTab:CreateButton({
    end,
 })
 
-MainTab:CreateButton({
+Tab1:CreateButton({
    Name = "ALL SKIN",
    Callback = function()
       for _, v in pairs(game:GetDescendants()) do
