@@ -1,14 +1,14 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Cazz Script",
+   Name = "XshadowX",
    Icon = 0,
-   LoadingTitle = "Cazz Script Hub",
-   LoadingSubtitle = "by Caz",
+   LoadingTitle = "Wait...",
+   LoadingSubtitle = "by XshadowX",
    ConfigurationSaving = {
       Enabled = false,
       FolderName = nil,
-      FileName = "CazzConfig"
+      FileName = "XshadowX Config"
    },
    Discord = {
       Enabled = true,
@@ -17,10 +17,10 @@ local Window = Rayfield:CreateWindow({
    },
    KeySystem = true,
    KeySettings = {
-      Title = "Cazz Script Key",
-      Subtitle = "Join Discord for Key",
-      Note = "Join the community to get your access key",
-      FileName = "CazzKey",
+      Title = "XshadowX Key🔒",
+      Subtitle = "keyyyyy",
+      Note = "XshadowX key",
+      FileName = "shadow Key",
       SaveKey = true,
       GrabKeyFromSite = true,
       Key = {"https://pastebin.com/raw/BWxkLALB"}
