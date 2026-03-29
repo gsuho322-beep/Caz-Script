@@ -1,73 +1,61 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Caz Script",
-   LoadingTitle = "Velocity System",
-   LoadingSubtitle = "by Rebo",
-   ConfigurationSaving = { Enabled = false },
-   KeySystem = false
+   Name = "Cazz Script",
+   Icon = 0,
+   LoadingTitle = "Cazz Script Hub",
+   LoadingSubtitle = "by Caz",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil,
+      FileName = "CazzConfig"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "B6jnEvBafe",
+      RememberJoins = true
+   },
+   KeySystem = true,
+   KeySettings = {
+      Title = "Cazz Script Key",
+      Subtitle = "Join Discord for Key",
+      Note = "Join the community to get your access key",
+      FileName = "CazzKey",
+      SaveKey = true,
+      GrabKeyFromSite = true,
+      Key = {"https://pastebin.com/raw/BWxkLALB"}
+   }
 })
 
-local Tab1 = Window:CreateTab("Main", 4483362458)
+local MainTab = Window:CreateTab("Main", 4483362458)
 
-local p = game.Players.LocalPlayer
-local Flying = false
+Rayfield:Notify({
+   Title = "Cazz Script Loaded",
+   Content = "Success",
+   Duration = 5,
+   Image = 4483362458,
+})
 
-Tab1:CreateButton({
-   Name = "REAL FLY",
+local Tab = Window:CreateTab("Main tab", nil) -- Title, Image
+local MainSection = Tab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "XshadowX V1",
+   Content = "XshadowX",
+   Duration = 6.5,
+   Image = nil,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Modern",
    Callback = function()
-      if Flying then Flying = false return end
-      Flying = true
-      local char = p.Character
-      local root = char and char:FindFirstChild("HumanoidRootPart")
-      if not root then return end
-      local bv = Instance.new("BodyVelocity", root)
-      bv.Name = "CazFly"
-      bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-      bv.Velocity = Vector3.new(0,0,0)
-      local bg = Instance.new("BodyGyro", root)
-      bg.Name = "CazGyro"
-      bg.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
-      bg.CFrame = root.CFrame
-      task.spawn(function()
-         while Flying and char.Parent do
-            local cam = workspace.CurrentCamera
-            root.CFrame = CFrame.new(root.Position, root.Position + cam.CFrame.LookVector)
-            bv.Velocity = char.Humanoid.MoveDirection * 50
-            task.wait()
-         end
-         if bv then bv:Destroy() end
-         if bg then bg:Destroy() end
-      end)
+   loadstring(game:HttpGet'https://exploit.plus/Loader')()
    end,
 })
 
-Tab1:CreateButton({
-   Name = "AIMBOT",
+local Button = MainTab:CreateButton({
+   Name = "kiciahook V2",
    Callback = function()
-      local target = nil
-      local dist = math.huge
-      for _, v in pairs(game.Players:GetPlayers()) do
-         if v ~= p and v.Character and v.Character:FindFirstChild("Head") then
-            local m = (v.Character.Head.Position - p.Character.Head.Position).Magnitude
-            if m < dist then dist = m target = v end
-         end
-      end
-      if target then
-         workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, target.Character.Head.Position)
-      end
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()
    end,
 })
-
-Tab1:CreateButton({
-   Name = "ALL SKIN",
-   Callback = function()
-      for _, v in pairs(game:GetDescendants()) do
-         if v:IsA("BoolValue") and (v.Name:lower():find("own") or v.Name:lower():find("unlock") or v.Name:lower():find("skin")) then
-            v.Value = true
-         end
-      end
-   end,
-})
-
-Rayfield:LoadConfiguration()
