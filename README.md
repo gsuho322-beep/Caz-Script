@@ -56,6 +56,6 @@ local Button = MainTab:CreateButton({
 local Button = MainTab:CreateButton({
    Name = "kiciahook V2",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.luau"))()
    end,
 })
