@@ -21,9 +21,9 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "keyyyyy",
       Note = "XshadowX key",
       FileName = "shadow Key",
-      SaveKey = true,
+      SaveKey = false,
       GrabKeyFromSite = true,
-      Key = {"https://pastebin.com/raw/BWxkLALB"}
+      Key = {}
    }
 })
 
